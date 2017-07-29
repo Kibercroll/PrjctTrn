@@ -1,0 +1,134 @@
+package com.out.Training;
+import java.io.*;
+
+class DataTrain{
+    private int povtorKettle = 0;
+    private int podxodKettle = 0;
+    private int povtorTurnik = 0;
+    private int podxodTurnik = 0;
+
+    private int reader() throws IOException {
+        BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
+        int choice = 0;
+        try {
+            choice = Integer.parseInt(buf.readLine());
+        }
+        catch (NumberFormatException io) {}
+        return choice;
+    }
+
+    private void showMenu() throws IOException {
+        System.out.println("\n" + "   Программа тренировки с гирями v0.1" + "\n");
+        System.out.println("1. Установить количество подходов и повторений для гирь");
+        System.out.println("2. Установить количество подходов и повторений для турника и брусьев");
+        System.out.println("3. Показать таблицу гирь");
+        System.out.println("4. Показать таблицу турника");
+        System.out.println("5. Выход");
+
+        int choice = reader();
+
+        switch (choice){
+            case 1:
+                System.out.print("   Нaчальное количество подходов ");
+                podxodKettle = reader();
+                if (podxodKettle < 3 || podxodKettle > 6) {
+                    System.out.println("\n" + "   Недопустимое значение");
+                    podxodKettle = 0;
+                    showMenu();
+                    break;
+                }
+                System.out.print("   Максимальное количество повторений ");
+                povtorKettle = reader();
+                if (povtorKettle < 5 || povtorKettle > 20){
+                    System.out.println("\n" + "   Недопустимое значение" );
+                    povtorKettle = 0;
+                    showMenu();
+                    break;
+                }
+                tableTrainKettle();
+                break;
+            case 2:
+                System.out.print("   Нaчальное количество подходов ");
+                podxodTurnik = reader();
+                if (podxodTurnik < 3 || podxodTurnik > 6) {
+                    System.out.println("\n" + "   Недопустимое значение");
+                    podxodTurnik = 0;
+                    showMenu();
+                    break;
+                }
+                System.out.print("   Максимальное количество повторений ");
+                povtorTurnik = reader();
+                if (povtorTurnik < 5 || povtorTurnik > 20){
+                    System.out.println("\n" + "   Недопустимое значение" );
+                    povtorTurnik = 0;
+                    showMenu();
+                    break;
+                }
+                tableTrainTurnik();
+                break;
+            case 3:
+                tableTrainKettle();
+                break;
+            case 4:
+                tableTrainTurnik();
+                break;
+            case 5: break;
+
+        }if (choice < 1 || choice > 5){
+            System.out.println("   Несуществующий пункт меню или неккоректный ввод");
+            showMenu();
+        }
+    }
+
+    private void counterOfKettle(){
+        int formula, counterOfPercent = 100;
+        for (int i = 0; i < podxodKettle; i++, counterOfPercent -= 20) {
+            formula = ((povtorKettle * counterOfPercent) / 100);
+            System.out.print(formula + " ");
+        }
+    }
+
+    private void counterOfTurnik(){
+        int formula, counterOfPercent = 100;
+        for (int i = 0; i < podxodTurnik; i++, counterOfPercent -= 18) {
+            formula = ((povtorTurnik * counterOfPercent) / 100);
+            System.out.print(formula + " ");
+        }
+    }
+
+    private void tableTrainKettle() throws IOException {
+        System.out.println();
+        System.out.print("1. Свинги с гирей " + "\t"    + podxodKettle +" x "); counterOfKettle(); System.out.println();
+        System.out.print("2. Подъём на грудь " + "\t"   + podxodKettle +" x "); counterOfKettle(); System.out.println();
+        System.out.print("3. Приседания " + "\t" + "\t" + podxodKettle +" x "); counterOfKettle(); System.out.println();
+        System.out.print("4. Рывок гири " + "\t" + "\t" + podxodKettle +" x "); counterOfKettle(); System.out.println();
+        System.out.print("5. Толчок гири " + "\t" + "\t"+ podxodKettle +" x "); counterOfKettle(); System.out.println();
+        showMenu();
+    }
+
+    private void tableTrainTurnik() throws IOException {
+        System.out.println();
+        System.out.print("1. Подтягивания широким хватом " + "\t" + podxodTurnik +" x ");
+            counterOfTurnik(); System.out.println();
+        System.out.print("2. Отжимания на брусьях" + "\t" + "\t" + "\t"   + podxodTurnik +" x ");
+            counterOfTurnik(); System.out.println();
+        System.out.print("3. Жим гирь на бицепс " + "\t" + "\t" + "\t" + podxodTurnik +" x ");
+            counterOfTurnik(); System.out.println();
+        System.out.print("4. Жим лёжа на грудь " + "\t" + "\t" + "\t" + podxodTurnik +" x ");
+            counterOfTurnik(); System.out.println();
+        System.out.print("5. Приседания " + "\t" + "\t" + "\t" + "\t" + "\t" + podxodTurnik +" x ");
+            counterOfTurnik(); System.out.println();
+        showMenu();
+    }
+
+    public void getShowMenu() throws IOException {
+        showMenu();
+    }
+}
+
+class MainTrain {
+    public static void main(String[] args) throws IOException {
+      DataTrain dat = new DataTrain();
+      dat.getShowMenu();
+    }
+}
